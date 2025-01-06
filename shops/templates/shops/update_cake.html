@@ -1,0 +1,134 @@
+{% block title %}{% endblock %}
+
+{% block content %}
+{% comment %} <a href="{% url 'shop_dashboard' %}" style="text-decoration: none; color:rgb(26, 104, 229);">&larr; Back</a> {% endcomment %}
+<div class="container">
+
+    <h1>Update Cake</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ cake.name }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" required>{{ cake.description }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" name="price" step="0.01" value="{{ cake.price }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="stock" class="form-label">Stock</label>
+            <input type="number" class="form-control" id="stock" name="stock" value="{{ cake.stock }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Image</label>
+            <input type="file" class="form-control" id="image" name="image">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Cake</button>
+    </form>
+</div>
+
+<style>
+/* General Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Form Container */
+.container {
+    max-width: 800px;
+    padding: 30px;
+    background-color: #222; /* Dark background for form */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow */
+}
+
+/* Form Heading */
+h1 {
+    color: #ff66b2; /* Bright pink color */
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px; /* Decreased space from the heading */
+}
+
+/* Form Label */
+.form-label {
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px; /* Reduced space between label and input */
+}
+
+/* Input fields */
+.form-control {
+    background-color: #333; /* Dark input background */
+    border: 1px solid #444; /* Dark border */
+    color: #fff; /* White text */
+    padding: 12px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-bottom: 10px; /* Reduced margin between input boxes */
+    transition: all 0.3s ease-in-out;
+    width: 100%; /* Ensure the input field takes full width */
+}
+
+/* Focus effect for input fields */
+.form-control:focus {
+    background-color: #555;
+    border-color: #ff66b2; /* Pink border on focus */
+    box-shadow: 0 0 5px rgba(255, 102, 178, 0.7); /* Pink shadow */
+    outline: none;
+}
+
+/* Button Styling */
+.btn {
+    background-color: #ff66b2; /* Bright pink */
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Button hover effect */
+.btn:hover {
+    background-color: #ff3385; /* Darker pink on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 576px) {
+    .container {
+        padding: 20px;
+        max-width: 100%;
+    }
+    h1 {
+        font-size: 28px;
+    }
+    .form-control, .btn {
+        font-size: 14px;
+    }
+}
+</style>
+{% endblock %}

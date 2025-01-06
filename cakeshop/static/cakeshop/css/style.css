@@ -1,0 +1,163 @@
+/* cakeshop/static/cakeshop/css/style.css */
+
+/* Logo styling */
+.navbar-brand img {
+    width: 150px; /* Adjust width as per your requirement */
+    height: auto; /* Maintain aspect ratio */
+    margin: 5px 0; /* Add margin to align vertically */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Hover effect for the logo */
+.navbar-brand img:hover {
+    transform: scale(1.1); 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f7e8a0;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Header Styles */
+.navbar {
+    background-color: #fff;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.navbar-brand img {
+    max-height: 50px;
+}
+
+.nav-link {
+    color: #d63e3e !important;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    color: #a83232 !important;
+}
+
+/* Main Slider Area */
+.slider-area {
+    background-image: url('../img/slider/slider-background.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 50px 0;
+}
+
+/* Cake List Styling */
+.cake-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.cake-item {
+    background: #fff;
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cake-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.cake-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card-body h3 {
+    font-size: 1.5rem;
+    color: #d63e3e;
+    margin-bottom: 15px;
+}
+
+.card-body .price {
+    font-size: 1.25rem;
+    color: #333;
+}
+
+.add-to-cart-btn {
+    font-size: 1rem;
+    background-color: #d63e3e;
+    border: none;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #a83232;
+}
+
+/* Footer Styles */
+.footer-area {
+    background-color: #ffcccb;
+    color: #333;
+    padding: 20px 0;
+}
+
+.footer-area p {
+    margin: 0;
+}
+
+.footer-bottom {
+    padding: 10px 0;
+    background: #f1f1f1;
+}
+
+.footer-bottom p {
+    color: #555;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .cake-list {
+        flex-direction: column;
+        align-items: center;
+    }
+    .cake-item {
+        width: 90%;
+    }
+}
+
+/* Navbar Dropdown Styling */
+.navbar {
+    padding: 15px;
+}
+
+.navbar-nav {
+    margin-left: auto;
+}
+
+.dropdown-menu {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 0;
+}
+
+.dropdown-item {
+    padding: 10px 20px;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+.dropdown-item:hover {
+    background-color: #f7e8a0;
+    color: #d63e3e;
+}

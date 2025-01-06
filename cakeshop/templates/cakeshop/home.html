@@ -1,0 +1,306 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home - Cake Palace</title>
+
+    <!-- Google Web Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Icon Font Stylesheet -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'cakeshop/css/style.css' %}" rel="stylesheet" />
+
+    <!-- Internal CSS -->
+    <style>
+      /* General body styles */
+      body {
+        font-family: "Heebo", sans-serif;
+        background-color: rgb(0, 0, 0);
+        color: #ffd1ba;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* Set body to occupy full viewport height */
+      }
+
+      body, html {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* Prevent horizontal scrolling */
+        height: 100%; /* Ensure proper alignment */
+      }
+
+      .container {
+        margin: 0; /* Ensure no extra margins from container classes */
+      }
+      
+
+
+      /* Adjust hero-header to prevent it from exceeding the viewport */
+      .hero-header {
+        min-height: calc(100vh - 65px); /* Adjust the height to account for the footer */
+        margin: 0; /* Remove any margin around the hero-header */
+        border-bottom: none; /* Ensure no border interferes */
+        flex: 1; /* Allow the hero section to take up remaining space */
+
+      }
+      /* Navbar styles */
+      .navbar {
+        background-color: #333333;
+        border-bottom: 2px solid #ffd1ba;
+      }
+
+      .navbar-brand img {
+        height: 50px; /* Adjust height for consistent navbar size */
+    width: auto; /* Maintain aspect ratio */
+    display: inline-block; /* Ensure it aligns well within the navbar */
+    vertical-align: middle; /* Align with text or other navbar elements */
+    transition: transform 0.3s ease; /* Smooth animation on hover */
+      }
+
+      .navbar-brand img:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 10px rgba(255, 209, 186, 0.7);
+      }
+
+      .navbar-nav .nav-link {
+        color: #ffd1ba !important;
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+
+      .navbar-nav .nav-link:hover {
+        color: #ff9a82;
+      }
+       /* Hero Text Animation */
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Applying Animation to Hero Text */
+  .hero-text h1 {
+    animation: fadeInUp 1s ease-out forwards;
+  }
+
+  .hero-text p {
+    animation: fadeInUp 1.2s ease-out forwards; /* Slight delay for better effect */
+  }
+
+      /* Hero Section with Full Image */
+      .hero-header {
+        position: relative;
+        height: 100vh;
+        background-image: url("{% static 'cakeshop/img/homecake.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        border-bottom: 5px solid #ffd1ba;
+      }
+
+      .hero-text {
+        position: relative;
+        max-width: 80%;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 10px;
+      }
+
+      /* Cafes Section */
+      .card img {
+        object-fit: cover;
+        height: 200px;
+      }
+
+      .navbar-nav .dropdown-menu {
+        position: absolute;
+        z-index: 1050; /* Ensures it stays on top */
+      }
+      
+      .navbar {
+        overflow: visible; /* Ensure dropdown is visible */
+      }
+
+      main {
+        flex: 1; /* Let the main content (hero section) fill the remaining space */
+      }
+      
+
+      /* Footer Styles */
+     footer {
+  background-color: #333333;
+  color: #ffd1ba;
+  padding: 15px 0;
+  text-align: center;
+  font-size: 14px;
+  border: none; /* Remove the black line */
+  margin: 0; /* Remove any margin */
+}
+      @media (max-width: 768px) {
+        .hero-text h1 {
+          font-size: 2.2rem;
+        }
+        .hero-text p {
+          font-size: 1.1rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- Header Section Start -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <!-- Logo Section -->
+          <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'cakeshop/img/logo/logo-Photoroom.png' %}" alt="Cake Palace Logo" class="logo" />
+          </a>
+
+          <!-- Navbar Toggle for Responsive Behavior -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- Collapsed Menu -->
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <!-- Home Link -->
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Home</a>
+              </li>
+
+              <!-- Login Dropdown -->
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="loginDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Login
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="loginDropdown">
+                  <li>
+                    <a class="dropdown-item" href="{% url 'admin_login' %}">Login as Admin</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'shop_login' %}">Login as Shop Owner</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'customer_login' %}">Login as Customer</a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Signup Dropdown -->
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="signupDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Signup
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="signupDropdown">
+                  <li>
+                    <a class="dropdown-item" href="{% url 'shop_signup' %}">Signup as Shop Owner</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'customer_signup' %}">Signup as Customer</a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Conditional Display if Logged In -->
+              {% if user.is_authenticated %}
+                {% if user.shop %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'shop_dashboard' %}">Shop Dashboard</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                  <form method="post" action="{% url 'logout' %}" class="d-inline">
+                    {% csrf_token %}
+                    <button
+                      type="submit"
+                      class="btn btn-link nav-link"
+                      style="border: none; background: none; color: white; text-decoration: none; padding: 0;"
+                    >
+                      Logout
+                    </button>
+                  </form>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+
+
+    <!-- Hero Section -->
+    <main>
+      <div class="hero-header">
+        <div class="hero-text">
+          <h1>Order Your Favorite Cakes Online</h1>
+          <p>Explore the best cafes and restaurants around you and order delicious cakes for every occasion.</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+      <div>&copy; 2024 Cake Palace. All Rights Reserved.</div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

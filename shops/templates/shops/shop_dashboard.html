@@ -1,0 +1,197 @@
+{% block content %}
+<style>
+    /* Body Styling */
+    body {
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(40, 40, 40, 0.9));
+        color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Container Styling */
+    .container {
+        max-width: 1200px;
+        margin: 50px auto;
+        padding: 0 15px;
+        flex: 1;
+    }
+
+    /* Header Styling */
+    h1 {
+        color: rgb(253, 136, 191);
+        font-size: 48px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), 0 0 25px rgba(253, 136, 191, 0.7);
+        background: linear-gradient(to right, #f3a2c5, #fdb1d6);
+        -webkit-background-clip: text;
+        color: transparent;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    /* Card Styling */
+    .card {
+        border-radius: 15px;
+        overflow: hidden;
+        border: none;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .card-body {
+        padding: 30px;
+        text-align: center;
+    }
+
+    .card-title {
+        font-size: 22px;
+        font-weight: bold;
+        color: rgb(161, 54, 99);
+        margin-bottom: 15px;
+    }
+
+    .card-text {
+        font-size: 18px;
+        color: #333;
+        line-height: 1.6;
+        margin-bottom: 25px;
+        text-align: justify;
+    }
+
+    .btn {
+        padding: 10px 25px;
+        font-size: 16px;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        background-color: rgb(107, 54, 72);
+        border-color: rgb(136, 71, 104);
+        color: white;
+        text-decoration: none;
+    }
+
+    .btn-primary:hover {
+        background-color: rgb(180, 85, 133);
+    }
+
+    .btn-secondary {
+        background-color: rgb(107, 54, 72);
+        border-color: rgb(136, 71, 104);
+        color: white;
+        text-decoration: none;
+    }
+
+    .btn-secondary:hover {
+        background-color: rgb(180, 85, 133);
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .row {
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+    }
+
+    .col-md-4 {
+        flex: 1;
+        max-width: 32%;
+    }
+
+    .logout-form {
+        margin-top: 40px;
+        text-align: center;
+    }
+
+    .logout-form button {
+        background-color: #dc3545;
+        border: none;
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .logout-form button:hover {
+        background-color: #c82333;
+    }
+
+    @media (max-width: 767px) {
+        .col-md-4 {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 28px;
+        }
+
+        .btn {
+            font-size: 14px;
+        }
+    }
+</style>
+
+<div class="container">
+    <!-- Header Section -->
+    <h1>Welcome to {{ shop.shop_name }}</h1>
+
+    <div class="row">
+        <!-- Add Menu Card -->
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Add Menu</h5>
+                    <p class="card-text">Add  new  cakes  and  update  your  menu for yor cafe.</p>
+                    <a href="{% url 'add_cake' %}" class="btn btn-primary">Go to Add Menu</a>
+                    <a href="{% url 'manage_shop_menu' %}" class="btn btn-secondary">View Menu</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Orders Card -->
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Orders</h5>
+                    <p class="card-text">View and manage all orders from customers.</p>
+                    <a href="{% url 'manage_orders' %}" class="btn btn-primary">Go to Orders</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Reviews Card -->
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">View Reviews</h5>
+                    <p class="card-text">Check out customer feedback and reviews.</p>
+                    <a href="{% url 'shop_reviews' shop.id %}" class="btn btn-primary">Go to Reviews</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logout Button -->
+    <div class="logout-form">
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

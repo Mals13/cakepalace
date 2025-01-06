@@ -1,0 +1,99 @@
+{% block content %}
+<body>
+<a href="{% url 'shop_dashboard' %}" style="text-decoration: none; color:rgb(15, 19, 237); font-weight: bold;">&larr; Back</a>
+
+<div style="display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #000; padding: 20px;">
+    <div class="container" style="max-width: 1600px; background-color: #fff; padding: 60px; border-radius: 20px; color: #000; box-shadow: 0 0 40px rgba(247, 109, 130, 0.9);">
+        <h2 class="text-center" style="color:rgb(0, 0, 0); font-weight: bold;">Manage Orders</h2>
+
+        <!-- Section for Out for Delivery Orders -->
+        {% if out_for_delivery_orders %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" style="color: #000; border: 2px solid #000; table-layout: fixed; width: 100%;">
+                <thead>
+                    {% comment %} <tr style="background-color: #f8f9fa; color: #000; border: 1px solid #000;"> {% endcomment %}
+                    <tr style="background-color: #f8f9fa; color: #000; border: 1px solid #000;">
+                        <th style="border: 1px solid #000;">Order ID</th>
+                        <th style="border: 1px solid #000;">Customer</th>
+                        <th style="border: 1px solid #000;">Cake</th>
+                        <th style="border: 1px solid #000;">Quantity</th>
+                        <th style="border: 1px solid #000;">Total Price</th>
+                        <th style="border: 1px solid #000;">Order Date</th>
+                        <th style="border: 1px solid #000;">Status</th>
+                    </tr>
+                </thead>
+                <tbody style="text-align: center;">
+                    {% for order in out_for_delivery_orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.customer.username }}</td>
+                        <td>{{ order.cake.name }}</td>
+                        <td>{{ order.quantity }}</td>
+                        <td>&#8377;{{ order.total_price|floatformat:2 }}</td>
+                        <td>{{ order.order_date }}</td>
+                        <td><span class="badge bg-warning" style="background-color: #ffc107; color: #000;">{{ order.status }}</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-center" style="color: #000;">No orders are Out for Delivery.</p>
+        {% endif %}
+
+        <!-- Section for Other Orders -->
+        <h4 class="mt-5" style="color:rgb(0, 0, 0);">Other Orders</h4>
+        {% if other_orders %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" style="color: #000; border-color: #000; table-layout: fixed; width: 100%;">
+                <thead>
+                    <tr style="background-color: #f8f9fa; color: #000;">
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Cake</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                        <th>Order Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody style="text-align: center;">
+                    {% for order in other_orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.customer.username }}</td>
+                        <td>{{ order.cake.name }}</td>
+                        <td>{{ order.quantity }}</td>
+                        <td>&#8377;{{ order.total_price|floatformat:2 }}</td>
+                        <td>{{ order.order_date }}</td>
+                        <td>{{ order.status }}</td>
+                        <td>
+                            <form method="post" action="{% url 'update_order_status' order.id %}">
+                                {% csrf_token %}
+                                <select name="status" class="form-select" style="background-color: #fff; color: #000; border-color: #000;">
+                                    <option value="Processing" {% if order.status == 'Processing' %}selected{% endif %}>Pending</option>
+                                    <option value="Confirmed" {% if order.status == 'Confirmed' %}selected{% endif %}>Confirmed</option>
+                                    <option value="Out for Delivery" {% if order.status == 'Out for Delivery' %}selected{% endif %}>Out for Delivery</option>
+                                    <option value="Cancelled" {% if order.status == 'Cancelled' %}selected{% endif %}>Cancelled</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary btn-sm mt-2" style="background-color:rgb(0, 0, 0); color: #fff; border: none;">Update</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-center" style="color:rgb(0, 0, 0);">No orders available.</p>
+        {% endif %}
+    </div>
+</div>
+<style>
+    body {
+        background-color: black;
+    }
+</style>
+</body>
+{% endblock %}

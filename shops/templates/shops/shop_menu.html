@@ -1,0 +1,131 @@
+
+{% block title %}{% endblock %}
+
+{% block content %}
+<a href="{% url 'list_shops' %}" style="text-decoration: none; color:rgb(26, 104, 229);">&larr; Back</a>
+
+<div class="container my-5">
+    <!-- Shop Name and Description Section -->
+    <h2 class="text-center mb-3 shop-title">{{ shop.shop_name }} - Menu</h2>
+    <p class="text-center mb-4 shop-description">{{ shop.shop_description }}</p>
+
+    <!-- Menu Items Section -->
+    <div class="menu-container">
+        {% for item in menu_items %}
+        <div class="menu-item d-flex align-items-start mb-4">
+            <img src="{{ item.image.url }}" class="menu-item-image me-3" alt="{{ item.name }}">
+            <div class="menu-item-details">
+                <h5 class="menu-item-title">{{ item.name }}</h5>
+                <p class="menu-item-description">{{ item.description }}</p>
+                <p class="text-muted menu-item-price">Price: &#8377;{{ item.price }}</p>
+                <p class="text-muted menu-item-stock">Stock: {{ item.stock }}</p>
+                <!-- Link to Cake Description Page -->
+                <a href="{% url 'cake_detail' item.id %}" class="btn btn-primary btn-sm mt-2" style="text-decoration: none; font-weight: bold;">View Details</a>
+                {% if item.stock > 0 %}
+                    <a href="{% url 'add_to_cart' item.id %}" class="btn btn-primary btn-sm mt-2 no-underline">Add to Cart</a>
+                {% else %}
+                    <button class="btn btn-secondary btn-sm mt-2" disabled>Out of Stock</button>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Internal CSS -->
+<style>
+    /* General Body Styling */
+    body {
+        font-family: 'Heebo', sans-serif;
+        background: radial-gradient(circle at center,rgb(114, 60, 87),rgb(184, 173, 184)); /* Pink to deep black gradient */            margin: 0;
+        color:rgb(0, 0, 0);
+    }
+
+    /* Shop Title Section */
+    .shop-title {
+        text-align: center;
+        color:rgb(0, 0, 0);
+        font-size: 2.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .btn btn-primary btn-sm mt-2{
+        text-decoration: none;
+    }
+    .shop-description {
+        text-align: center;
+        font-size: 1.2rem;
+        color:rgb(0, 0, 0);
+    }
+
+    /* Menu Item Container */
+    .menu-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+
+    /* Menu Item Styling */
+    .menu-item {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        background-color:rgb(138, 138, 138);
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .no-underline {
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .menu-item-image {
+        height: 120px;
+        width: 120px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .menu-item-details {
+        flex: 1;
+        padding: 0 10px;
+    }
+
+    .menu-item-title {
+        font-size: 1.5rem;
+        color:rgb(0, 0, 0);
+        font-weight: bold;
+        margin: 0 0 5px;
+    }
+
+    .menu-item-description {
+        font-size: 1rem;
+        margin: 0 0 8px;
+    }
+
+    .menu-item-price,
+    .menu-item-stock {
+        font-size: 0.9rem;
+        color:rgb(0, 0, 0);
+    }
+
+    /* Button styles */
+    .btn-primary {
+        background-color:rgb(29, 21, 19);
+        border: none;
+        transition: background-color 0.3s;
+    }
+
+    .btn-primary:hover {
+        background-color:rgb(120, 95, 92);
+    }
+
+    .btn-secondary {
+        background-color: #555;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,151 @@
+{% comment %} {% extends 'cakeshop/base.html' %} {% endcomment %}
+{% load static %}
+
+{% comment %} {% block title %}Customer Sign Up{% endblock %} {% endcomment %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color:rgb(69, 21, 47);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .signup-container {
+            display: flex;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0px 4px 10px rgba(162, 119, 119, 0.2);
+        overflow: hidden;
+
+        /* Increased height and width */
+        max-width: 1000px; /* Set a larger max width */
+        height: 600px; /* Set a larger height */
+        width: 100%;
+        }
+        .signup-image {
+            width: 50%;
+            background-image: url('{% static "cakeshop/img/cake.jpg" %}');
+            background-size: cover;
+            background-position: center;
+        }
+        .signup-form {
+            width: 50%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .signup-form h2 {
+            font-size: 28px;
+            color: #d63e3e;
+            margin-bottom: 20px;
+        }
+        .signup-form label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        .signup-form input {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        .signup-form button {
+            padding: 12px;
+            font-size: 16px;
+            color: white;
+            background-color: #d63e3e;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .signup-form button:hover {
+            background-color: #a83232;
+        }
+        .signup-form a {
+            text-align: center;
+            color: #555;
+            font-size: 14px;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+        .signup-form a:hover {
+            text-decoration: underline;
+        }
+        .messages {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-image"></div>
+        <div class="signup-form">
+            <h2>Create Your Account</h2>
+
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form id="signupForm" method="post" action="{% url 'customer_signup' %}">
+                {% csrf_token %}
+
+                <!-- Username -->
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Your username" required minlength="4" maxlength="20" pattern="[a-zA-Z0-9]+" title="Username must contain only letters and numbers, and be 4-20 characters long.">
+
+                <!-- Email -->
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Your email" required>
+
+                <!-- Password -->
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Your password" required minlength="6" maxlength="20" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" title="Password must be at least 6 characters long and contain both letters and numbers.">
+
+                <!-- Confirm Password -->
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+
+                <!-- Submit Button -->
+                <button type="submit">Sign Up</button>
+            </form>
+
+            <a href="{% url 'customer_login' %}">Already have an account? Login here</a>
+        </div>
+    </div>
+        <script>
+            // JavaScript Validation for Confirm Password
+            document.getElementById('signupForm').addEventListener('submit', function (event) {
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirm_password').value;
+
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match.');
+                    event.preventDefault(); // Prevent form submission
+                }
+            });
+        </script>
+    </body>
+</html>
+{% endblock %}

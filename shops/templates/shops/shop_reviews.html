@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shop Reviews - {{ shop.shop_name }}</title>
+    <style>
+        /* General Page Styling */
+        body {
+            font-family: "Heebo", sans-serif;
+            background-color: #000000;
+            color: #ffd1ba;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #333333;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Title Styling */
+        h1 {
+            text-align: center;
+            color: #ff9a82;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(255, 154, 130, 0.5);
+        }
+
+        /* Review List Styling */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #555555;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            padding: 15px;
+            color: #ffd1ba;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        li:hover {
+            background-color: #ff9a82;
+            transition: background-color 0.3s ease;
+            color: #000;
+        }
+
+        strong {
+            font-weight: bold;
+            color: #ffd1ba;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        small {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* Back Button Styling */
+        .back-btn {
+            display: inline-block;
+            background-color: #ff9a82;
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background-color: #e6756b;
+            color: #fff;
+            box-shadow: 0 4px 8px rgba(255, 154, 130, 0.5);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            li {
+                font-size: 0.9rem;
+            }
+
+            .back-btn {
+                font-size: 0.9rem;
+                padding: 8px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'shop_dashboard' %}" style="text-decoration: none; color:rgb(26, 104, 229);">&larr; Back</a>
+    <div class="container">
+        <!-- Back Button -->
+        
+        <!-- Title -->
+        <h1>Reviews for {{ shop.shop_name }}</h1>
+        <!-- Reviews -->
+        {% if reviews %}
+        <ul>
+            {% for review in reviews %}
+            <li>
+                <strong>{{ review.user.username }}</strong> reviewed {{ review.cake.name }}
+                - ⭐ {{ review.rating }}/5
+                <p>{{ review.comment }}</p>
+                <small>Reviewed on {{ review.created_at|date:"Y-m-d H:i" }}</small>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p style="text-align: center; font-size: 1.2rem; font-weight: bold; color: #ccc;">No reviews available for this shop.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

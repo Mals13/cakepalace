@@ -1,0 +1,224 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #ffcccb;
+    padding: 10px;
+    text-align: center;
+}
+header nav a {
+    margin: 0 10px;
+    text-decoration: none;
+}
+.cake-list, .cart-items, .order-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+.cake-item, .cart-item, .order-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 200px;
+}
+.btn {
+    background-color: #ff7043;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* Style for Signup Section */
+.signup-form {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.signup-form h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.signup-form .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.signup-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.signup-form input[type="text"],
+.signup-form input[type="email"],
+.signup-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.signup-form input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.signup-form .btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.signup-form .btn:hover {
+    background-color: #0056b3;
+}
+
+.signup-form p {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+.signup-form a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.signup-form a:hover {
+    text-decoration: underline;
+}
+
+/* Style for Messages */
+.messages {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.messages li {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* cakeshop/static/cakeshop/styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7e8a0;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #ffcccb;
+    padding: 15px;
+    text-align: center;
+}
+
+header nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #d63e3e;
+    font-weight: bold;
+}
+
+header nav a:hover {
+    color: #a83232;
+}
+
+h2 {
+    color: #d63e3e;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.cake-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.cake-item {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cake-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.cake-item h3 {
+    font-size: 22px;
+    color: #d63e3e;
+    margin: 15px 10px 0;
+}
+
+.cake-item p {
+    font-size: 14px;
+    color: #555;
+    margin: 10px 10px 15px;
+}
+
+.cake-item .price {
+    font-weight: bold;
+    color: #333;
+    margin: 0 10px 15px;
+}
+
+.cake-item .add-to-cart-btn {
+    padding: 10px;
+    margin: 15px;
+    color: white;
+    background-color: #d63e3e;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+    text-decoration: none;
+}
+
+.cake-item .add-to-cart-btn:hover {
+    background-color: #a83232;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #ffcccb;
+    margin-top: 40px;
+}

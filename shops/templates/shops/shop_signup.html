@@ -1,0 +1,205 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Owner Sign Up</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: rgb(71, 28, 40);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .signup-container {
+            display: flex;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            max-width: 1000px;
+            width: 80%; /* Adjust width */
+        }
+
+        .signup-form {
+            width: 100%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-section {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .form-section .half-width {
+            width: 48%;
+        }
+
+        .signup-form h2 {
+            font-size: 28px;
+            color: #d63e3e;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .signup-form label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .signup-form input,
+        .signup-form textarea {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        .signup-form button {
+            padding: 12px;
+            font-size: 16px;
+            color: white;
+            background-color: #d63e3e;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        .signup-form button:hover {
+            background-color: #a83232;
+        }
+
+        .signup-form a {
+            text-align: center;
+            color: #555;
+            font-size: 14px;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+
+        .signup-form a:hover {
+            text-decoration: underline;
+        }
+
+        .messages {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-form">
+            <h2>Create Your Shop Account</h2>
+
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form id="shopSignupForm" method="post" action="{% url 'shop_signup' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- Section 1: Personal Information -->
+                <div class="form-section">
+                    <!-- Username -->
+                    <div class="half-width">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" placeholder="Your username" required minlength="4" maxlength="20" pattern="[a-zA-Z0-9]+" title="Username must contain only letters and numbers, and be 4-20 characters long.">
+                    </div>
+
+                    <!-- Email -->
+                    <div class="half-width">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Your email" required>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <!-- Password -->
+                    <div class="half-width">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Your password" required minlength="6" maxlength="20" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" title="Password must be at least 6 characters long and contain both letters and numbers.">
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="half-width">
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+                    </div>
+                </div>
+
+                <!-- Section 2: Shop Information -->
+                <div class="form-section">
+                    <!-- Shop Name -->
+                    <div class="half-width">
+                        <label for="shop_name">Shop Name</label>
+                        <input type="text" id="shop_name" name="shop_name" placeholder="Your shop name" required>
+                    </div>
+
+                    <!-- Shop Contact Number -->
+                    <div class="half-width">
+                        <label for="shop_contact">Shop Contact Number</label>
+                        <input type="text" id="shop_contact" name="shop_contact" placeholder="Your shop contact number" required>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <!-- Shop Address -->
+                    <div class="half-width">
+                        <label for="shop_address">Shop Address</label>
+                        <textarea id="shop_address" name="shop_address" placeholder="Your shop address" required></textarea>
+                    </div>
+
+                    <!-- Shop Description -->
+                    <div class="half-width">
+                        <label for="shop_description">Shop Description</label>
+                        <textarea id="shop_description" name="shop_description" placeholder="A brief description of your shop"></textarea>
+                    </div>
+                </div>
+
+                <!-- Shop Logo/Image -->
+                <label for="shop_logo">Shop Logo/Image (Optional)</label>
+                <input type="file" id="shop_logo" name="shop_logo" class="form-control">
+
+                <!-- Submit Button -->
+                <button type="submit">Sign Up as Shop Owner</button>
+            </form>
+
+            <a href="{% url 'shop_login' %}">Already have an account? Login here</a>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript Validation for Confirm Password
+        document.getElementById('shopSignupForm').addEventListener('submit', function (event) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match.');
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+    </script>
+</body>
+</html>

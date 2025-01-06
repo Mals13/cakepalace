@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color:rgb(71, 28, 40);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+        display: flex;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0px 4px 10px rgba(162, 119, 119, 0.2);
+        overflow: hidden;
+
+        /* Increased height and width */
+        max-width: 1000px; /* Set a larger max width */
+        height: 600px; /* Set a larger height */
+        width: 100%;
+    }
+        .login-image {
+            width: 50%;
+            background-image: url('{% static "cakeshop/img/cake.jpg" %}');
+            background-size: cover;
+            background-position: center;
+        }
+        .login-form {
+            width: 50%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .login-form h2 {
+            font-size: 28px;
+            color: #d63e3e;
+            margin-bottom: 20px;
+        }
+        .login-form label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        .login-form input {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        .login-form button {
+            padding: 12px;
+            font-size: 16px;
+            color: white;
+            background-color: #d63e3e;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .login-form button:hover {
+            background-color: #a83232;
+        }
+        .login-form a {
+            text-align: center;
+            color: #555;
+            font-size: 14px;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+        .login-form a:hover {
+            text-decoration: underline;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-image"></div>
+        <div class="login-form">
+            <h2>Welcome Back!<br><span style="font-weight: bold;">Login</span></h2>
+
+            <!-- Display error messages if available -->
+            {% if messages %}
+            <div class="error">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form method="post" action="{% url 'customer_login' %}" onsubmit="return validateForm()">
+                {% csrf_token %}
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Your username" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Your password" required minlength="6">
+
+                <button type="submit">Login</button>
+            </form>
+            <a href="{% url 'customer_signup' %}">Don't have an account? Sign up here</a>
+        </div>
+    </div>
+
+    <script>
+        function validateForm() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            if (username == "" || password == "") {
+                alert("Both fields are required.");
+                return false;
+            }
+            if (password.length < 6) {
+                alert("Password must be at least 6 characters long.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{% block title %}View Reviews{% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Customer Reviews</h2>
+    {% if reviews %}
+    <ul class="list-group">
+        {% for review in reviews %}
+        <li class="list-group-item">
+            <h5>{{ review.title }}</h5>
+            <p>{{ review.body }}</p>
+            <small class="text-muted">By {{ review.user.username }} on {{ review.created_at }}</small>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No reviews available yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

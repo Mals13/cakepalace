@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f0f0f0 0%, #d8a2c8 100%);
+
+        }
+
+        .header {
+            background-color: rgb(156, 80, 98); /* Pink background */
+            color: #fff;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .header .logout-btn {
+            background-color: transparent; /* Black button */
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .header .logout-btn:hover {
+            background-color: #222; /* Darker black on hover */
+        }
+
+        .container {
+            padding: 100px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            display: inline-block;
+            margin: 20px;
+            padding: 20px;
+            width: 300px;
+            background-color: #222; /* Black background for cards */
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: #fff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h2 {
+            margin-bottom: 15px;
+            color: rgb(156, 80, 98); /* Pink for headings */
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .card p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #ccc; /* Light gray text */
+        }
+
+        .card a {
+            text-decoration: none;
+            color: #fff;
+            background-color: rgb(156, 80, 98); /* Pink button */
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .card a:hover {
+            background-color:rgb(156, 80, 98); /* Darker pink on hover */
+        }
+
+        footer {
+            margin-top: 30px;
+            padding: 15px 0;
+            background-color: #222; /* Black footer */
+            color: #fff;
+            text-align: center;
+        }
+
+        footer a {
+            color:rgb(156, 80, 98); /* Pink for footer links */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Logout Button -->
+    <div class="header">
+        <h1>Admin Dashboard</h1>
+        <form method="post" action="{% url 'logout' %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="card">
+            <h2>Approve Shops</h2>
+            <p>Pending Shops Count: {{ pending_shops_count }}</p> <!-- Add debug output -->
+            <a href="{% url 'approve_users' %}" class="btn btn-danger">View Pending Approvals</a>
+    
+        </div>
+        <div class="card">
+            <h2>Manage Shops</h2>
+            <p>Approved Shops: {{ approved_shops_count }}</p>
+            <a href="{% url 'manage_shops' %}">Manage Shops</a>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

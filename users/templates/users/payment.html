@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle at center,rgb(114, 60, 87),rgb(184, 173, 184)); /* Pink to deep black gradient */            margin: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .btn-primary {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-primary:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        .btn-cancel {
+            background-color: #6c757d;
+            color: #fff;
+            border-color: #6c757d;
+        }
+
+        .btn-cancel:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+        .payment-icons img {
+            max-width: 40px;
+            margin-right: 10px;
+        }
+
+        .form-control {
+            height: 45px;
+            font-size: 1rem;
+        }
+
+        .form-inline-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .form-inline-label span {
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Order Overview - ₹{{ total_amount|floatformat:2 }}</h2>
+        <form method="post" action="{% url 'process_payment' %}" onsubmit="return validatePayment()">
+            {% csrf_token %}
+            
+            <!-- Cardholder Name -->
+            <div class="mb-3">
+                <label for="card_name" class="form-label">Cardholder Name</label>
+                <input type="text" class="form-control" id="card_name" name="card_name" placeholder="Full Name as on Card" required>
+            </div>
+            
+            <!-- Card Number -->
+            <div class="mb-3">
+                <label for="card_number" class="form-label">Card Number</label>
+                <input type="text" class="form-control" id="card_number" name="card_number" maxlength="16" pattern="\d{16}" placeholder="Card Number" title="Card number must be 16 digits" required>
+            </div>
+            
+            <!-- Expiry Month & Year -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="expiry_month" class="form-label">Expiry Month</label>
+                    <select class="form-control" id="expiry_month" name="expiry_month" required>
+                        <option value="" disabled selected>Month</option>
+                        {% for month in months %}
+                        <option value="{{ month }}">{{ month }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="expiry_year" class="form-label">Expiry Year</label>
+                    <select class="form-control" id="expiry_year" name="expiry_year" required>
+                        <option value="" disabled selected>Year</option>
+                        {% for year in years %}
+                        <option value="{{ year }}">{{ year }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            
+            <!-- CVV -->
+            <div class="mb-3">
+                <label for="cvv" class="form-label">CVV</label>
+                <input type="password" class="form-control" id="cvv" name="cvv" maxlength="3" pattern="\d{3}" placeholder="CVV" title="CVV must be 3 digits" required>
+            </div>
+            
+            <!-- Payment Icons -->
+            <div class="payment-icons mb-3 text-center">
+                <img src="https://via.placeholder.com/40x25?text=Visa" alt="Visa">
+                <img src="https://via.placeholder.com/40x25?text=Master" alt="MasterCard">
+                <img src="https://via.placeholder.com/40x25?text=Amex" alt="Amex">
+                <img src="https://via.placeholder.com/40x25?text=JCB" alt="JCB">
+                <img src="https://via.placeholder.com/40x25?text=Discover" alt="Discover">
+            </div>
+
+            <!-- Submit Buttons -->
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-cancel">Cancel</button>
+                <button type="submit" class="btn btn-primary">Pay ₹{{ total_amount|floatformat:2 }}</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- JavaScript Validation -->
+    <script>
+        function validatePayment() {
+            const expiryMonth = document.getElementById('expiry_month').value;
+            const expiryYear = document.getElementById('expiry_year').value;
+
+            // Get current month and year
+            const currentDate = new Date();
+            const currentMonth = currentDate.getMonth() + 1; // JavaScript months are 0-based
+            const currentYear = currentDate.getFullYear();
+
+            // Validate expiry date
+            if (expiryYear < currentYear || (expiryYear == currentYear && expiryMonth < currentMonth)) {
+                alert('Card expiration date must be in the future.');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

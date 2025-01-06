@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Shops</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            background: linear-gradient(to right, #d5006d, #ff4081); /* Gradient from pink to a lighter pink */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; /* Makes the gradient apply to the text */
+            font-size: 3em; /* Slightly larger font size */
+            margin-bottom: 20px;
+            font-weight: bold;
+            letter-spacing: 2px; /* Adds spacing between the letters for a more stylish look */
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #e4e4e4;
+            font-size: 1.1em;
+        }
+        th {
+            background-color: #d5006d; /* Pink */
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .btn {
+            text-decoration: none;
+            padding: 8px 16px;
+            color: white;
+            background-color: #000000; /* Black */
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #d5006d; /* Pink */
+        }
+        .btn:focus {
+            outline: none;
+        }
+        .form-container {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'admin_dashboard' %}" style="text-decoration: none; color:rgb(26, 104, 229);">&larr; Back</a>
+
+    <div class="container">
+        <h1>Manage Shops</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Shop Name</th>
+                    <th>Owner</th>
+                    <th>Contact</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for shop in approved_shops %}
+                <tr>
+                    <td>{{ shop.shop_name }}</td>
+                    <td>{{ shop.user.username }}</td>
+                    <td>{{ shop.shop_contact }}</td>
+                    <td class="form-container">
+                        <form action="{% url 'delete_shop' shop.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn" onclick="return confirm('Are you sure you want to delete this shop?');">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,127 @@
+{% block title %}{% endblock %}
+
+{% block content %}
+<h2 class="h2">Approve Shop</h2>
+<div class="container my-5">
+
+
+    <div class="card shadow-lg rounded-lg">
+        <div class="card-body p-5">
+            <h3 class="card-title text-primary">{{ shop.shop_name }}</h3>
+            <p class="text-muted"><strong>Owner:</strong> {{ shop.user.username }}</p>
+            <p class="text-muted"><strong>Address:</strong> {{ shop.shop_address }}</p>
+            <p class="text-muted"><strong>Contact:</strong> {{ shop.shop_contact }}</p>
+            <p class="text-muted"><strong>Description:</strong> {{ shop.shop_description }}</p>
+        </div>
+        <div class="card-footer text-center bg-light rounded-bottom">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" name="action" value="approve" class="btn btn-success btn-lg px-4 py-2 fw-bold border-0 rounded-3 shadow-sm hover-custom">Approve Shop</button>
+                <button type="submit" name="action" value="decline" class="btn btn-danger btn-lg px-4 py-2 fw-bold ms-3 rounded-3 shadow-sm hover-custom">
+                    Decline Shop
+                </button>
+                <a href="{% url 'approve_users' %}" class="btn btn-outline-secondary btn-lg px-4 py-2 fw-bold ms-3 rounded-3 shadow-sm">Back to List</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #2f2f2f;
+        color: #fff;
+    }
+    .h2 {
+        text-align: center;       /* Ensures the text is centered within the element */
+      }
+/* Custom Card Styling */
+.card {
+    border-radius: 15px;
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Additional styles for the Decline button */
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-3px);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+.card-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0056b3;
+}
+
+{% comment %} .card-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #e0e0e0;
+} {% endcomment %}
+
+.text-muted {
+    color:rgb(255, 255, 255) !important;
+}
+
+/* Button Styling */
+.btn {
+    font-size: 1rem;
+    padding: 12px 30px;
+    border-radius: 50px;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    transform: translateY(-3px);
+}
+
+.btn-outline-secondary {
+    border-color: #6c757d;
+    color: #6c757d;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: white;
+    transform: translateY(-3px);
+}
+
+.btn-lg {
+    font-size: 1.1rem;
+}
+
+.ms-3 {
+    margin-left: 1rem;
+}
+
+/* Hover effect */
+.hover-custom:hover {
+    background-color: #218838;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+</style>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <!-- Add your CSS styles -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px auto;
+            background: radial-gradient(circle at center,rgb(114, 60, 87),rgb(184, 173, 184)); /* Pink to deep black gradient */            margin: 0;
+        }
+        .container {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 400px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 50px auto;
+        }
+        .success-icon {
+            font-size: 60px;
+            color: green;
+        }
+        .message {
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        .btn {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #28a745;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn-secondary {
+            background-color: #007bff;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 16px;
+            color:rgb(15, 40, 200);
+            text-decoration: none;
+            {% comment %} font-weight: bold; {% endcomment %}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">✔</div>
+        <h1>Order Placed Successfully!</h1>
+        <p class="message">Our pharmacist will call you to confirm the medicines from your prescription.</p>
+        <a href="{% url 'customer_orders' %}" class="btn">View Orders</a>
+        <a href="{% url 'list_shops' %}" class="btn btn-secondary">Continue Shopping</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,183 @@
+{% block title %}{% endblock %}
+{% block content %}
+<a href="{% url 'shop_dashboard' %}" style="text-decoration: none; color:rgb(26, 104, 229);">&larr; Back</a>
+
+<h1 class="my-4 text-center text-pink stylish-heading">Manage Menu - {{ shop.shop_name }}</h1>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<div class="container">
+    <div class="row">
+        {% for cake in menu_items %}
+        <div class="col-md-12 mb-4">
+            <div class="card card-custom">
+                <img src="{{ cake.image.url }}" class="card-img-top cake-image" alt="{{ cake.name }}">
+                <div class="card-body">
+                    <h5 class="card-title text-pink">{{ cake.name }}</h5>
+                    <p class="card-text">{{ cake.description }}</p>
+                    <p><strong>Price:</strong> ₹{{ cake.price }}</p>
+                    <p><strong>Stock:</strong> {{ cake.stock }}</p>
+                    <div class="button-group">
+                        <a href="{% url 'update_cake' cake.id %}" class="btn btn-warning btn-sm">
+                            <i class="fas fa-pen"></i>
+                        </a>
+                        <form action="{% url 'delete_cake' cake.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-white text-center">No cakes have been added yet. Click below to add one.</p>
+        {% endfor %}
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'add_cake' %}" class="btn btn-primary btn-lg mt-4">Add New Cake</a>
+    </div>
+</div>
+
+<style>
+/* General Body Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+.text-white {
+    color: white; /* Makes the text white */
+    
+}
+
+.text-center {
+    text-align: center; /* Centers the text horizontally */
+    font-size: 18px; /* Adjusts the font size */
+    font-weight: bold; /* Makes the text bold (optional) */
+    padding: 10px; /* Adds some padding around the text */
+    {% comment %} background-color: #333; /* Adds a background color to make the text stand out (optional) */ {% endcomment %}
+    border-radius: 8px; /* Adds rounded corners to the background */
+    {% comment %} max-width: 80%; /* Ensures the text doesn't take up the full width */ {% endcomment %}
+    margin: 20px auto; /* Centers the element on the page vertically with space around */
+
+}
+
+
+.stylish-heading {
+    color: #ff66b2;
+    font-size: 48px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 105, 180, 0.8);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    background: linear-gradient(to right, #ff66b2, #ff3385);
+    -webkit-background-clip: text;
+    color: transparent;
+    padding: 20px 0;
+}
+.col-md-12.mb-4 {
+    display: flex;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+/* Card Layout Styling */
+.card-custom {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #1e1e1e;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 10px;
+}
+
+.card-custom:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Image Styling */
+.card-img-top {
+    width: 40%;
+    height: auto;
+    object-fit: cover;
+    border-right: 3px solid #ff66b2;
+}
+
+/* Card Body Styling */
+.card-body {
+    flex: 1;
+    padding: 15px;
+    text-align: left;
+}
+
+.card-title {
+    font-size: 18px;
+    color: #ff66b2;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 15px;
+}
+
+.card-body p strong {
+    color: #ff66b2;
+}
+
+/* Button Group */
+.button-group {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.button-group .btn {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.button-group .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.button-group .btn-warning:hover {
+    background-color: #ffc107;
+}
+
+.button-group .btn-danger:hover {
+    background-color: #ff3333;
+}
+
+/* Add New Cake Button */
+.btn-primary {
+    background-color: #ff66b2;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    margin-top: 40px; /* Add space above the button */
+}
+
+.btn-primary:hover {
+    background-color: #ff3385;
+}
+</style>
+{% endblock %}

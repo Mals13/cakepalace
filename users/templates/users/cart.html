@@ -1,0 +1,195 @@
+{% load static %}
+{% block content %}
+<a href="{% url 'list_shops' %}" style="text-decoration: none; color:rgb(26, 104, 229);">&larr; Back</a>
+
+<div class="container my-5 d-flex flex-column justify-content-center align-items-center">
+
+    <!-- Page Title -->
+    <h2 class="text-center mb-4" style="color:rgb(0, 0, 0); margin-top: 20px;">Your Cart</h2>
+
+    {% if not cart_items_with_totals %}
+        <!-- Empty Cart Section -->
+        <div class="text-center my-5 d-flex flex-column align-items-center">
+            <img src="{% static 'users/img/empty_cart1.png' %}" alt="Empty Cart" class="img-fluid" style="max-width: 500px; height: auto;">
+            <h4 class="mt-3 mb-3" style="color:rgb(0, 0, 0); text-align: center;">Your cart is currently empty!</h4>
+            <a href="{% url 'list_shops' %}" class="btn btn-custom mt-3">Browse Shops</a>
+        </div>
+    {% else %}
+        <!-- Cart Table Section -->
+        <div class="table-responsive my-4 d-flex justify-content-center align-items-center">
+            <div class="text-center">
+                <table class="table table-bordered shadow-sm text-center" style="max-width: 900px; margin: 0 auto;">
+                    <thead>
+                        <tr style="background-color: #333333; color: #ffd1ba; font-weight: 700;">
+                            <th>Cake</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart_items_with_totals %}
+                        <tr style="background-color: #555555; color: #ffd1ba;">
+                            <td>{{ item.cake.name }}</td>
+                            <td>
+                                <!-- Decrease Quantity -->
+                                <form method="post" action="{% url 'update_cart' item.id %}" class="d-inline">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" value="decrease">
+                                    <button type="submit" class="btn btn-secondary btn-sm">-</button>
+                                </form>
+                                <span class="mx-2">{{ item.quantity }}</span>
+                                <!-- Increase Quantity -->
+                                <form method="post" action="{% url 'update_cart' item.id %}" class="d-inline">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" value="increase">
+                                    <button type="submit" class="btn btn-secondary btn-sm">+</button>
+                                </form>
+                            </td>
+                            <td>&#8377;{{ item.cake.price|floatformat:2 }}</td>
+                            <td>&#8377;{{ item.item_total|floatformat:2 }}</td>
+                            <td>
+                                <form method="post" action="{% url 'remove_from_cart' item.id %}" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            </div>
+
+        </div>
+
+<!-- Grand Total Section -->
+<div class="grand-total-container">
+    <h4 class="grand-total">Grand Total: &#8377;{{ total_price|floatformat:2 }}</h4>
+</div>
+
+<!-- Checkout Section -->
+<div class="checkout-container">
+    <form method="post" action="{% url 'checkout' %}">
+        {% csrf_token %}
+        <button type="submit" class="checkout-btn">Checkout</button>
+    </form>
+</div>
+
+
+    {% endif %}
+</div>
+
+<!-- Internal CSS -->
+<style>
+    /* General Page Styling */
+    body {
+        font-family: "Heebo", sans-serif;
+        background: radial-gradient(circle at center,rgb(114, 60, 87),rgb(184, 173, 184)); /* Pink to deep black gradient */            margin: 0;
+        color: #ffd1ba;
+        margin: 0;
+    }
+/* General Button Styling */
+.btn-custom {
+    background-color: #ff9a82;
+    color: black;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 25px; /* Rounded corners */
+    font-size: 1.1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  /* Hover Effects */
+  .btn-custom:hover {
+    background-color: #ff6b5f;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Active Effects */
+  .btn-custom:active {
+    transform: translateY(2px);
+  }
+    /* Center Alignment Across the Whole Page */
+    .container {
+        text-align: center;
+    }
+
+    /* Empty Cart Image Styling */
+    img {
+        max-width: 500px;
+        height: auto;
+    }
+
+    /* Cart Table Styling */
+    table {
+        font-size: 1rem;
+        color: #ffd1ba;
+    }
+
+    tbody tr:hover {
+        background-color: #ff9a82;
+        transition: 0.3s ease;
+    }
+
+    td,
+    th {
+        text-align: center;
+        padding: 12px;
+    }
+
+    /* Button Effects */
+    .btn-primary:hover,
+    .btn-secondary:hover,
+    .btn-danger:hover {
+        background-color: #ff9a82;
+    }
+/* General Flexbox Centering for Full Width */
+.grand-total-container,
+.checkout-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Ensures centering across full page */
+}
+
+/* Style for Grand Total */
+.grand-total {
+    color: #ffd1ba;
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 10px 0;
+}
+
+/* Checkout Button Style */
+.checkout-btn {
+    background-color: #ff9a82;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.checkout-btn:hover {
+    background-color: #e6756b;
+}
+
+    /* Responsive Design Adjustments */
+    @media (max-width: 768px) {
+        img {
+            max-width: 300px;
+        }
+
+        .table-responsive {
+            font-size: 0.85rem;
+        }
+    }
+</style>
+{% endblock %}
